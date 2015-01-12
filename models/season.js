@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     location_id: {
-      type: DataTypes.INTEGER, 
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     date_started: {
@@ -25,6 +25,11 @@ module.exports = function(sequelize, DataTypes) {
       validate: {
         isDate: true
       }
+    },
+    default: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+      defaultValue: false
     },
     note: {
       type: DataTypes.TEXT,
@@ -49,4 +54,4 @@ module.exports = function(sequelize, DataTypes) {
       }
     }
   });
-};  
+};
