@@ -4,7 +4,9 @@ var models  = require('../models');
 
 module.exports = function (access) {
     router.get('/', access.if_logged_in_as_admin(), function (req, res) {
-      res.render('admin/index', { title: 'Admin Home' });
+      res.render('admin/index', {
+            title: 'Admin Home',
+            mainNav: 'admin' });
     });
 
     router.get('/sync', access.if_logged_in_as_admin(), function (req, res) {
