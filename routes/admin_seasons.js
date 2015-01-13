@@ -11,7 +11,8 @@ module.exports = function (access) {
             mainNav: 'admin',
             subNav: 'seasons',
             title: 'Seasons list',
-            seasons: seasons
+            seasons: seasons,
+            layout_type: 'main'
           });
         });
       });
@@ -21,7 +22,8 @@ module.exports = function (access) {
       res.render('admin/seasons/create', {
         title: 'Create a new season',
         errors: {},
-        values: {}
+        values: {},
+        layout_type: 'main'
       });
     });
 
@@ -46,6 +48,7 @@ module.exports = function (access) {
             res.render('admin/seasons/create', {
               title: 'Create a new season',
               values: req.body,
+              layout_type: 'main',
               errors: _.object(_.map(err.errors, function (error) { return [error.path, error]; }))
             });
           });
@@ -72,8 +75,33 @@ module.exports = function (access) {
           });
         }
       });
-      
     });
+
+    router.post('/:id',access.if_logged_in_as_admin(), function (req, res) {
+      function SeasonDelete (req,res) {
+        models.Season.find(req.params.id)
+        .then(function(season){
+          season.destroy()
+          .then(function(){
+            res.status(200);
+            res.redirect('/admin/seasons');
+          })
+          .catch(function(){
+            res.status(400);
+          });
+        })
+        .catch(function(){
+          res.status(400);
+        });
+      }
+
+
+      if (req.body._method === "DELETE") {
+        SeasonDelete(req,res);
+      }
+    });
+
+
 
     return router;
 };

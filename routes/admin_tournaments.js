@@ -6,7 +6,8 @@ module.exports = function (access) {
       res.render('admin/tournaments/index', {
         mainNav: 'admin',
         subNav: 'tournaments',
-        title: 'Tournaments list'
+        title: 'Tournaments list',
+        layout_type: 'main'
       });
     });
 

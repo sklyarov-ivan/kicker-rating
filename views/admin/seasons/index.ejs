@@ -7,10 +7,15 @@
 <div class="row table-responsive">
   <table class="table table-striped">
   <% seasons.forEach(function (season) { %>
-    <tr>
+    <tr class="<%= (!!season.default) ? 'success' : '' %>">
       <td><%= season.title %></td>
-      <td><a class="btn btn-danger">Delete</a></td>
-    </div>
+      <td>
+        <form method="POST" action="/admin/seasons/<%= season.id%>" enctype="application/x-www-form-urlencoded">
+          <input type="hidden" name="_method" value="DELETE">
+          <button type="submit" class="btn btn-danger">Delete</button>
+        </form>
+      </td>
+    </td>
   <% }) %>
   </table>
 </div>
